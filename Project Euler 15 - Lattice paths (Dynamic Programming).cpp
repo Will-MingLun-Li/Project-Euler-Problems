@@ -1,37 +1,29 @@
 #include <iostream>
 using namespace std;
-#define MOD 1000000000+7
+#define MOD 1000000007;
 
-long long int mod(long long int val) {
-	return val %= MOD;
-}
+void routeSum(long long int arr[][501]) {
+    for(int i = 1; i <= 500; i++) 
+        arr[0][i] = arr[i][0] = 1;
 
-long long int routeSum(int r, int c) {
-	long long int arr[r+1][c+1];
-
-	for (int i = 0; i <= r; i++) {
-		for (int j = 0; j <= c; j++) {
-			arr[i][j] = 1;
+	for (int i = 1; i <= 500; i++) {
+		for (int j = 1; j <= 500; j++) {
+			arr[i][j] = (arr[i-1][j] + arr[i][j-1]) % MOD;
 		}
 	}
-
-	for (int i = 1; i <= r; i++) {
-		for (int j = 1; j <= c; j++) {
-			arr[i][j] = arr[i - 1][j] + arr[i][j - 1];
-		}
-	}
-
-	return mod(arr[r][c]);
 }
 
 int main() {
+    long long int arr[501][501] = {0}; //Because 500 is the cap
+	routeSum(arr);	
+
 	int cases, r, c;
 	cin >> cases;
 
 	for (int i = 0; i < cases; i++) {
 		cin >> r >> c;
 
-		cout << routeSum(r, c) << endl;
+		cout << arr[r][c] << endl;
 	}
 
 	return 0;
