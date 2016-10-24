@@ -29,13 +29,12 @@ int num_divisors(int n){
 }
 
 int main() {
-    int cases, num;
+    int cases, num = 1, n = 1;
     cin >> cases;
     
-    for (int i = 0; i < cases; i++){
-        cin >> num;
-        
-        int n = 1;
+    int arr[1001];
+    
+    while (num <= 1000){
         int lnum = num_divisors(n), rnum = num_divisors(n+1);
         
         while (lnum * rnum <= num) {
@@ -44,7 +43,15 @@ int main() {
             rnum = num_divisors(n+1);
         }
         
-        cout << (n*(n+1))/2 << endl;
+        arr[num] = (n*(n+1))/2;
+        num++;
+    }
+    
+    int val;
+    for (int i = 0; i < cases; i++){
+        cin >> val;
+          
+        cout << arr[val] << endl;
     }
     return 0;
 }
