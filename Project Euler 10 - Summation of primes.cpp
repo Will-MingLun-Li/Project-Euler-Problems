@@ -1,10 +1,12 @@
 #include <iostream>
 using namespace std;
 
-void sieve(long long int a[], int size) {
+void sieve(long long int a[], long long int sum[], int size) {
 
 	a[0] = 0;
 	a[1] = 0;
+	sum[0] = 0;
+	sum[1] = 0;
 
 	for (int i = 2; i <= size; i++) {
 		a[i] = 1;
@@ -18,28 +20,29 @@ void sieve(long long int a[], int size) {
 		}
 	}
 
+	for (int i = 2; i <= size; i++) {
+		if (a[i])
+			sum[i] = sum[i-1] + i;
+		else 
+			sum[i] = sum[i-1];
+	}
+
 }
 
 int main() {
 	int cases, num;
 	cin >> cases;
     
-    int max = 2000000;
+    int max = 1000000;
     long long int arr[max + 1];
+    long long int sum[max + 1];
 
-    sieve(arr, max);
+    sieve(arr, sum, max);
 
 	for (int i = 0; i < cases; i++) {
-        long long int sum = 0;
 		cin >> num;
 
-		for (int j = 2; j <= num; j++) {
-			if (arr[j]) {
-                sum += j;
-            }
-		}
-
-		cout << sum << endl;
+		cout << sum[num] << endl;
 	}
 
 	return 0;
